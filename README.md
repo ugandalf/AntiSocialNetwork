@@ -22,3 +22,22 @@ Myślę, że może powinniśmy pisać po angielsku? Ale to do obgadania.
 - Struktura projektu - podzielić na odpowiednie katalogi - obmyślić jakie, jakiś ze skryptami, jakiś z interfejsem graficznym, może dokumentacja i testy
 - Stworzyć szkielet projektu we flasku - ugandalf myśli, że to zadanie dla decapitatedbody
 - Lepsza lista TODO
+
+# Pomysły na tabele
+
+| ugandalf            | decapitatedbody    |
+|---------------------+--------------------|
+| znajomi             | znajomi            |
+|                     | wiadomosci         |
+| posty               | posty              |
+|                     | powiadomienia      |
+|                     | zapisane rzeczy    |
+| lajki/dislajki      | polajkowane rzeczy |
+| dane logowania      |                    |
+| pytanie o znajomosc |                    |
+| profil              |                    |
+| tagi postow         |                    |
+| tagi                |                    |
+| elementy ui         |                    |
+
+
