@@ -15,15 +15,15 @@
 - Kolumna typu text jest rozwiązaniem wygodnym, bo nie trzeba się martwić długością tekstu. Wolałbym jednak abyście popracowali nad zmianą typu na varchar (ale tylko w niektórych miejscach). Możecie np. ograniczyć długość loginu. 
 - Uważajcie na nazywanie czegoś dokładnie tak samo jak nazwa typu (date). Może to Was później bardzo mylić.
 - Troszkę wydaje się uboga w rozwiązania Wasza baza. Rozważcie następujące pomysły:
-    a) Rozwinięcie komunikacji między użytkownikami. W tym momencie macie tylko friends_request, a co, gdy ktoś zaakceptuje/odrzuci? Może jakaś lista znajomych? Może trzeba dać możliwość realnej komunikacji?
-    b) Komentarze do postów mają często postać "lasu". Jeżeli ktoś wstawi komentarz do postu to jest możliwość odpowiedzi na ten komentarz w innym komentarzu, tworząc takie drzewo. Każdy komentarz (do postu, nie do innego komentarza) jest traktowany jak osobne "drzewo". Jak to można rozwiązać? Bardzo prosto. Po pierwszy każdy komentarz powinien mieć swój id. Następnie, tworzą Panowie kolumnę "parent_com_id" (czy coś takiego), która informuje do jakiego komentarza jest to komentarz (:D). Jeżeli parent_com_id jest nullem to oznacza, że jest to komentarz do postu. Dzięki temu możecie stworzyć fajną strukturę. Dla ułatwienia programistycznego: najpierw możecie ładować z bazy jedynie te komentarze do postu, które mają parent_com_id is null. Następnie przy komentarzach, które mają "pod komentarz" możecie dać możliwość rozwinięcia komentarzy (czyli jeżeli kliknięty komentarz ma id "8" to wybieracie wszystkie komentarze, których rodzicem jest "8" - zauważcie, że nie bierzecie wtedy pod uwagę wnuków - tylko jedno pokolenie w dół). 
-    c) Może warto dodać coś więcej w informacji o użytkowniku. Wygląda to dość minimalistycznie. 
+    - Rozwinięcie komunikacji między użytkownikami. W tym momencie macie tylko friends_request, a co, gdy ktoś zaakceptuje/odrzuci? Może jakaś lista znajomych? Może trzeba dać możliwość realnej komunikacji?
+    - Komentarze do postów mają często postać "lasu". Jeżeli ktoś wstawi komentarz do postu to jest możliwość odpowiedzi na ten komentarz w innym komentarzu, tworząc takie drzewo. Każdy komentarz (do postu, nie do innego komentarza) jest traktowany jak osobne "drzewo". Jak to można rozwiązać? Bardzo prosto. Po pierwszy każdy komentarz powinien mieć swój id. Następnie, tworzą Panowie kolumnę "parent_com_id" (czy coś takiego), która informuje do jakiego komentarza jest to komentarz (:D). Jeżeli parent_com_id jest nullem to oznacza, że jest to komentarz do postu. Dzięki temu możecie stworzyć fajną strukturę. Dla ułatwienia programistycznego: najpierw możecie ładować z bazy jedynie te komentarze do postu, które mają parent_com_id is null. Następnie przy komentarzach, które mają "pod komentarz" możecie dać możliwość rozwinięcia komentarzy (czyli jeżeli kliknięty komentarz ma id "8" to wybieracie wszystkie komentarze, których rodzicem jest "8" - zauważcie, że nie bierzecie wtedy pod uwagę wnuków - tylko jedno pokolenie w dół). 
+    - Może warto dodać coś więcej w informacji o użytkowniku. Wygląda to dość minimalistycznie. 
 - Konkretne tabele:
-    a) login_credentials - Może jakaś funkcja szyfrująca i deszyfrująca, którą moglibyście dodać np. jako trigger przy zapisie? 
-    b) users - jest ok, chociaż uważajcie na brak kontroli kolumny country. Co jak ktoś wpiszę polska, a za innym razem Polska?
-    c) friends_request - tak jak wspominałem brakuje mi tutaj czegoś więcej (może nie w tej tabeli, ale w tematyce komunikacji między użytkownikami).
-    d) tags - wygląda bardzo minimalistycznie, dodajcie jeszcze takiś opis co dany tag zawiera
-    e) comments - wspominałem o rozszerzeniu tego powyżej.
+    - login_credentials - Może jakaś funkcja szyfrująca i deszyfrująca, którą moglibyście dodać np. jako trigger przy zapisie? 
+    - users - jest ok, chociaż uważajcie na brak kontroli kolumny country. Co jak ktoś wpiszę polska, a za innym razem Polska?
+    - friends_request - tak jak wspominałem brakuje mi tutaj czegoś więcej (może nie w tej tabeli, ale w tematyce komunikacji między użytkownikami).
+    - tags - wygląda bardzo minimalistycznie, dodajcie jeszcze takiś opis co dany tag zawiera
+    - comments - wspominałem o rozszerzeniu tego powyżej.
 
 * Schemat bazy
 - [[https://app.dbdesigner.net/][Link do strony]]
