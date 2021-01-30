@@ -1,0 +1,13 @@
+<!-- Navigation bar -->
+{% from 'bootstrap/nav.html' import render_nav_item %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="navbar-nav mr-auto">
+    {{ render_nav_item('base', 'Register') }}
+    {{ render_nav_item('welcome', 'Home') }}
+    {{ render_nav_item('posts', 'Posts') }}
+    {{ render_nav_item('posts', 'People') }}
+  {% if True %}
+    {{ render_nav_item('posts', 'Logout') }}
+  {% endif %}
+  </div>
+</nav>

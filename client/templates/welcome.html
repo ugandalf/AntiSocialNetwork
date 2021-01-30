@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+    {% include 'partials/header.html' %}
+    <body>
+        {% block content %}
+	    {% include 'partials/navbar.html' %}
+            {% from 'bootstrap/pagination.html' import render_pagination %}
+            {% from 'bootstrap/table.html' import render_table %}
+            {{ render_pagination(users) }}
+            {{ render_table(users.items, primary_key = 'user_id', show_actions = True, view_url = "posts/:primary_key" ) }}
+        {% endblock %}
+
+        {% block scripts %}
+            {{ bootstrap.load_js() }}
+        {% endblock %}
+    </body>
+</html>

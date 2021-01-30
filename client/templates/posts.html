@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="en">
+    {% include 'partials/header.html' %}
+    <body>
+        {% block content %}
+	    {% include 'partials/navbar.html' %}
+        {% endblock %}
+
+        {% block scripts %}
+            {{ bootstrap.load_js() }}
+        {% endblock %}
+    </body>
+</html>
