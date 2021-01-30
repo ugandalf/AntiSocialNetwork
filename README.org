@@ -6,3 +6,21 @@
 - Więcej widoków
 - Logowanie
 - Wyświetlanie postów
+
+* Instrukcja instalowania
+Wymaga zainstalowanego pythona 3 (TWORZONE POD WERSJĄ 3.9), działającego postgresql
+
+#+begin_src shell
+git clone https://github.com/ugandalf/AntiSocialNetwork.git
+cd AntiSocialNetwork
+sudo pip3 install -r requirements.txt
+./create_database.sh
+#+end_src
+
+Serwer uruchamiamy przez:
+
+#+begin_src shell
+./run.sh
+#+end_src
+
+i dostępny pod adresem /localhost:5000/
