@@ -1,13 +1,48 @@
 <!doctype html>
 <html lang="en">
+    {% from 'bootstrap/form.html' import render_form %}
+    {% from 'bootstrap/utils.html' import render_messages %}
     {% include 'partials/header.html' %}
     <body>
+      {{ render_messages() }}
         {% block content %}
-	    {% include 'partials/navbar.html' %}
-            {% from 'bootstrap/pagination.html' import render_pagination %}
-            {% from 'bootstrap/table.html' import render_table %}
-            {{ render_pagination(users) }}
-            {{ render_table(users.items, primary_key = 'user_id', show_actions = True, view_url = "posts/:primary_key" ) }}
+	          <div class="jumbotron w-75 mx-auto">
+                <h1 class="display-4">Welcome to AntiSocialNetwork!!!</h1>
+                <p class="lead"> This website is all about creating posts, making friends and chatting! Check it out! </p>
+                <hr class="my-4">
+                <div class="accordion" id="forms">
+                  <div class="card">
+                    <div class="card-header" id="headingOne">
+                      <h2 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                          Register
+                        </button>
+                      </h2>
+                    </div>
+                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#forms">
+                      <div class="card-body">
+                        {{ render_form(registration_form) }}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <div class="card-header" id="headingTwo">
+                      <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                          Login
+                        </button>
+                      </h2>
+                    </div>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#forms">
+                      <div class="card-body">
+                        {{ render_form(login_form) }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
         {% endblock %}
 
         {% block scripts %}

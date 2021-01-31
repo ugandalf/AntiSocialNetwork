@@ -2,6 +2,7 @@
 
 from flask_wtf import FlaskForm
 from wtforms import StringField, DateField, PasswordField, SelectField, SubmitField, validators
+from flask_init import country_list
 
 class RegistrationForm(FlaskForm):
     email = StringField('Email Address', [validators.DataRequired()])
@@ -15,5 +16,5 @@ class RegistrationForm(FlaskForm):
         validators.DataRequired(),
         validators.Length(max=32)
     ])
-    country = SelectField('Country', choices=['Polska', 'Niemcy'])
+    country = SelectField('Country', choices=country_list)
     submit = SubmitField('Sign-Up')
