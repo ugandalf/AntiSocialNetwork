@@ -8,7 +8,6 @@
             {% from 'bootstrap/table.html' import render_table %}
             {{ render_pagination(post_pagination) }}
         {{ render_table(posts, titles = [(1, "Title"), (2, "Author"), (3, "Publication Date"), (4, "Number of likes"), (5, "Number of comments")], primary_key = 0, show_actions = True, view_url='/post/:primary_key') }}
-
         {% endblock %}
 
         {% block scripts %}

@@ -4,10 +4,8 @@
     <body>
         {% block content %}
 	    {% include 'partials/navbar.html' %}
-            {% from 'bootstrap/table.html' import render_table %}
             {% from 'bootstrap/form.html' import render_form %}
-            {{ render_table(message_history) }}
-            {{ render_form(message_form) }}
+            {{ render_form(new_post_form) }}
         {% endblock %}
 
         {% block scripts %}

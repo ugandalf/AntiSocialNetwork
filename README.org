@@ -2,10 +2,6 @@
 - 07.02	Doomsday - dzień wysyłania ostatecznych materiałów
 
 * Do zrobienia
-- Tworzenie nowych komentarzy
-- Tworzenie nowych wiadomości
-- Tworzenie nowych postów,  route new_post
-- Dodawanie zainteresowań
 - Bardziej przejrzyste wiadomości (kto co wysłał)
 - Wyświetlanie autorów komentarzy?
 - Profil ciasteczkowego ciekawszy?

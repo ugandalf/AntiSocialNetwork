@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
     {% from 'bootstrap/table.html' import render_table %}
+    {% from 'bootstrap/form.html' import render_form %}
     {% include 'partials/header.html' %}
     <body>
         {% block content %}
@@ -20,7 +21,7 @@
                 <h2 class="display-9"> Author: </h2>
             </div>
             <div class="col-sm">
-                <h2 class="display-9"> {{ post_intro[0] }} </h2>
+                <h2 class="display-9"> <a href="{{'/profile/' ~ post_contents.author_id}}">{{ post_intro[0] }} </a></h2>
             </div>
           </div>
           <div class='row'>
@@ -69,6 +70,7 @@
           </div>
           <p>
           {{ render_table(comments, titles = [(0, "Author"), (1, "Comment"), (2, "Date")]) }}
+          {{ render_form(comment_form) }}
         </div>
         {% endblock %}
 

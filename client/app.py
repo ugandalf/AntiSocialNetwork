@@ -1,7 +1,10 @@
+import datetime
 from flask import render_template, request, flash, redirect, url_for, session, make_response, abort
 
 from flask_init import *
-
+from forms.post_form import PostForm
+from forms.message_form import MessageForm
+from forms.tag_form import TagForm
 # routes:
 from welcome_page import welcome_page
 
@@ -12,12 +15,14 @@ def users(page):
     users = Users.query.paginate(page, per_page=25)
     return render_template("users.html", users = users)
 
+
 @app.route('/posts', methods=['GET'], defaults={"page": 1})
 @app.route('/posts/<int:page>', methods=['GET'])
 def posts(page):
     post_pagination = db.session.query("(post_id, title, name, post_date, n_likes, n_comments) FROM show_posts").paginate(page, per_page=15)
     posts = list(map(lambda x: x[0][1:-1].split(','), post_pagination.items))
     return render_template("posts.html", post_pagination = post_pagination, posts = posts)
+
 
 @app.route('/profile/', methods=['GET', 'POST'], defaults={"user_id": -1})
 @app.route('/profile/<int:user_id>', methods=['GET', 'POST'])
@@ -63,6 +68,7 @@ def profile(user_id):
     else:
         return abort(404)
 
+
 @app.route('/friends', methods=['GET', 'POST'])
 def friends():
     u = request.cookies.get("user_id")
@@ -103,27 +109,96 @@ def post(post_id):
     comments = Comments.query.filter_by(post_id = post_id).with_entities(Comments.user_id, Comments.comment, Comments.comment_date).all()
     tags = PostTags.query.filter_by(post_id = post_id).with_entities(PostTags.tag_id)
     tags = TagList.query.filter(TagList.tag_id.in_(tags)).with_entities(TagList.tag).all()
+    comment_form = MessageForm(request.form)
     if request.method == 'POST':
-        if request.form['submit_button'] == 'Add Like':
+        if request.form.get('submit_button', False) == 'Add Like':
             db.session.add(Likes(user_id = u, post_id = post_id))
             db.session.commit()
             flash("Successfully added a like to the post")
             return redirect(url_for('post', post_id = post_id))
-        if request.form['submit_button'] == 'Remove Like':
+        if request.form.get('submit_button', False) == 'Remove Like':
             db.session.delete(liked)
             db.session.commit()
             flash("Successfully removed a like to the post")
             return redirect(url_for('post', post_id = post_id))
+        if comment_form.validate():
+            comment = Comments(user_id = u,
+                               post_id = post_id,
+                               comment_date = datetime.datetime.now().replace(microsecond=0),
+                               comment = comment_form.message.data)
+            db.session.add(comment)
+            db.session.commit()
+            return redirect(url_for('post', post_id = post_id))
     return render_template("view_post.html", post_contents = post_contents, post_intro = post_intro,
-                           liked = bool(liked), comments = comments, tags = tags)
+                           liked = bool(liked), comments = comments, tags = tags, comment_form = comment_form)
 
-@app.route('/messages/<int:friend_id>')
+
+@app.route('/messages/<int:friend_id>', methods = ['GET', 'POST'])
 def messages(friend_id):
     u = request.cookies.get("user_id")
     connection = Friends_with.query.filter((Friends_with.user1_id == u) | (Friends_with.user2_id == u))
     connection = connection.filter((Friends_with.user1_id == friend_id) | (Friends_with.user2_id == friend_id)).first_or_404()
     message_history = Messages.query.filter_by(connection_id = connection.connection_id).all()
-    return render_template("messages.html", message_history = message_history)
+    message_form = MessageForm(request.form)
+    if request.method == 'POST' and message_form.validate():
+        message = Messages(connection_id = connection.connection_id,
+                           message_date = datetime.datetime.now().replace(microsecond=0),
+                           message = message_form.message.data,
+                           sender_id = u)
+        db.session.add(message)
+        db.session.commit()
+        return redirect(url_for('messages', friend_id = friend_id))
+    return render_template("messages.html", message_history = message_history, message_form = message_form)
+
+
+@app.route('/new_post', methods = ['GET', 'POST'])
+def new_post():
+    u = request.cookies.get("user_id")
+    new_post_form = PostForm(request.form).new()
+    if request.method == 'POST' and new_post_form.validate():
+        post = Posts(title = new_post_form.title.data, content = new_post_form.contents.data, author_id = u,
+                     post_date = datetime.datetime.now().replace(microsecond=0))
+        db.session.add(post)
+        db.session.commit()
+        for i in new_post_form.tags.data:
+            db.session.add(PostTags(post_id = post.post_id, tag_id = i))
+            db.session.commit()
+        flash("Post created successfully!")
+        return redirect(url_for('post', post_id = post.post_id))
+    return render_template("create_post.html", new_post_form = new_post_form)
+
+
+@app.route('/tags', methods = ['GET', 'POST'])
+def tags():
+    tags = TagList.query.order_by(TagList.tag).all()
+    tag_form = TagForm(request.form)
+    if request.method == 'POST':
+        if tag_form.validate():
+            tag = TagList(tag = tag_form.tag.data)
+            db.session.add(tag)
+            db.session.commit()
+            flash('Tag successfully added!')
+    return render_template("tags.html", tags = tags, tag_form = tag_form)
+
+
+@app.route('/tag/<int:tag_id>', methods = ['GET', 'POST'])
+def tag(tag_id):
+    u = request.cookies.get("user_id")
+    tag = TagList.query.filter_by(tag_id = tag_id).first_or_404()
+    is_interest = Interests.query.filter_by(user_id = u).filter_by(tag_id = tag.tag_id).first()
+    posts_with_tag = PostTags.query.filter_by(tag_id = tag_id).all()
+    users_with_tag = Interests.query.filter_by(tag_id = tag_id).all()
+    if request.method == 'POST':
+                if request.form['submit_button'] == 'Add interest':
+                    db.session.add(Interests(tag_id = tag.tag_id, user_id = u))
+                    db.session.commit()
+                    flash('Successfully added as an interest')
+                if request.form['submit_button'] == 'Remove interest':
+                    db.session.delete(is_interest)
+                    db.session.commit()
+                    flash('Successfully removed as an interest')
+                return redirect(url_for('tag', tag_id=tag_id))
+    return render_template("tag.html", tag = tag, is_interest = is_interest, posts_with_tag = posts_with_tag, users_with_tag = users_with_tag)
 
 
 @app.route('/logout')

@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+    {% include 'partials/header.html' %}
+    <body>
+        {% block content %}
+	    {% include 'partials/navbar.html' %}
+        {% from 'bootstrap/table.html' import render_table %}
+        <div class='jumbotron'>
+            <h1 class="display-4">
+              Tag or interest: {{ tag.tag }}
+              <hr class="my-4">
+              <form method="post">
+                {% if not is_interest: %}
+                <input class="btn btn-primary" type="submit" name="submit_button" value="Add interest">
+                {% else: %}
+                <input class="btn btn-primary" type="submit" name="submit_button" value="Remove interest">
+                {% endif%}
+              </form>
+            </h1>
+        </div>
+        <div class="accordion" id="forms">
+          <div class="card">
+            <div class="card-header" id="headingOne">
+              <h2 class="mb-0">
+                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  Posts with the given tag
+                </button>
+              </h2>
+            </div>
+            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#forms">
+              <div class="card-body">
+                {{ render_table(posts_with_tag, titles = [('post_id', "Post id")], primary_key="post_id", show_actions = True, view_url='/post/:primary_key') }}
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="headingTwo">
+              <h2 class="mb-0">
+                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  People who are interested in the given topic
+                </button>
+              </h2>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#forms">
+              <div class="card-body">
+                {{ render_table(users_with_tag, titles = [('user_id', "User id")], primary_key="user_id", show_actions = True, view_url='/profile/:primary_key') }}
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endblock %}
+
+        {% block scripts %}
+            {{ bootstrap.load_js() }}
+        {% endblock %}
+    </body>
+</html>
