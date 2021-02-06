@@ -1,11 +1,14 @@
 * Do wysłania prowadzącemu
-- 31.01	Opisać stan prac interfejsu graficznego
-- 06.02	Doomsday - dzień wysyłania ostatecznych materiałów
+- 07.02	Doomsday - dzień wysyłania ostatecznych materiałów
 
 * Do zrobienia
-- Więcej widoków
-- Logowanie
-- Wyświetlanie postów
+- Tworzenie nowych komentarzy
+- Tworzenie nowych wiadomości
+- Tworzenie nowych postów,  route new_post
+- Dodawanie zainteresowań
+- Bardziej przejrzyste wiadomości (kto co wysłał)
+- Wyświetlanie autorów komentarzy?
+- Profil ciasteczkowego ciekawszy?
 
 * Instrukcja instalowania
 Wymaga zainstalowanego pythona 3 (TWORZONE POD WERSJĄ 3.9), działającego postgresql

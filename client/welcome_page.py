@@ -35,11 +35,13 @@ def welcome_page():
 
     elif request.method == 'POST' and login_form.validate():
         credentials = db.session.query(LoginCredentials).filter_by(email = login_form.email.data).first()
-        correct = db.session.execute(f"SELECT password_check('{login_form.password.data}', '{credentials.password}')").first()[0]
+        if credentials:
+            correct = db.session.execute(f"SELECT password_check('{login_form.password.data}', '{credentials.password}')").first()[0]
+        else:
+            correct = False
         if correct:
             session[str(credentials.user_id)] = True
             resp = make_response(redirect(url_for("posts")))
-            # resp.set_cookie('user_id', credentials.user_id.to_bytes(6, 'little'))
             resp.set_cookie('user_id', str(credentials.user_id))
             flash('Thanks for visiting us again!')
             return resp

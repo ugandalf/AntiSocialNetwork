@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+    {% include 'partials/header.html' %}
+    <body>
+        {% block content %}
+	    {% include 'partials/navbar.html' %}
+        <div class='jumbotron'>
+            <h1 class="display-4">
+                Friend requests
+            </h1>
+            <div class="container">
+              {% for req in friend_requests: %}
+              <div class="row">
+                <div class="col-sm lead"> <a href= "{{ '/profile/' ~ req.user_id }}" > {{ req.name }} </a></div>
+                <form method="post">
+                  <div class="col-sm">
+                    <input class="btn btn-primary" type="submit" name={{"submit_button_" ~ req.user_id}} value="Delete">
+                    <input class="btn btn-primary" type="submit" name={{"submit_button_" ~ req.user_id}} value="Accept">
+                  </div>
+                </form>
+              </div>
+              <hr class="my-4">
+              {% endfor %}
+            </div>
+        </div>
+        <div class='jumbotron'>
+            <h1 class="display-4">
+                Friends
+            </h1>
+            <div class="container">
+              {% for friend in friends: %}
+              <div class="row">
+                <div class="col-sm lead"> <a href= {{ "/profile/" ~ friend.user_id }} > {{ friend.name }} </a></div>
+                <form method="post">
+                  <div class="col-sm"> <input class="btn btn-primary" type="submit" name={{"submit_button_" ~ friend.user_id}} value="Message"></div>
+                </form>
+              </div>
+              <hr class="my-4">
+              {% endfor %}
+            </table>
+        </div>
+        {% endblock %}
+        {% block scripts %}
+            {{ bootstrap.load_js() }}
+        {% endblock %}
+    </body>
+</html>

@@ -4,10 +4,8 @@
     <body>
         {% block content %}
 	    {% include 'partials/navbar.html' %}
-            {% from 'bootstrap/pagination.html' import render_pagination %}
             {% from 'bootstrap/table.html' import render_table %}
-            {{ render_pagination(users) }}
-            {{ render_table(users.items, titles = [("name", "Name")], primary_key = 'user_id', show_actions = True, view_url = "/profile/:primary_key" ) }}
+            {{ render_table(message_history) }}
         {% endblock %}
 
         {% block scripts %}

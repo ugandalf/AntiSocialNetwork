@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+    {% from 'bootstrap/table.html' import render_table %}
+    {% include 'partials/header.html' %}
+    <body>
+        {% block content %}
+	    {% include 'partials/navbar.html' %}
+        <div class='jumbotron'>
+            <h1 class="display-4">
+                {{ post_contents.title }}
+            </h1>
+            <hr class="my-4">
+            <h2>
+                {{ post_contents.content }}
+            </h2>
+        </div>
+        <div class='container'>
+          <div class='row'>
+            <div class="col-sm">
+                <h2 class="display-9"> Author: </h2>
+            </div>
+            <div class="col-sm">
+                <h2 class="display-9"> {{ post_intro[0] }} </h2>
+            </div>
+          </div>
+          <div class='row'>
+            <div class="col-sm">
+                <h2 class="display-9"> Publication date: </h2>
+            </div>
+            <div class="col-sm">
+                <h2 class="display-9"> {{ post_intro[1] }} </h2>
+            </div>
+          </div>
+          <div class='row'>
+            <div class="col-sm">
+                <h2 class="display-9"> Tags: </h2>
+            </div>
+            {% for tag in tags %}
+            <div class="col-sm">
+                <h2 class="display-9"> {{tag[0]}} </h2>
+            </div>
+            {% endfor %}
+          </div>
+          <hr class="my-4">
+          <p>
+          <div class='row'>
+            <div class="col-sm">
+                <h2 class="display-9"> Likes: </h2>
+            </div>
+            <div class="col-sm">
+                <h2 class="display-9"> {{ post_intro[2] }} </h2>
+            </div>
+          </div>
+          <form method="post">
+            {% if not liked: %}
+                <input class="btn btn-primary" type="submit" name="submit_button" value="Add Like">
+            {% else: %}
+                <input class="btn btn-primary" type="submit" name="submit_button" value="Remove Like">
+            {% endif %}
+          </form>
+          <hr class="my-4">
+          <div class='row'>
+            <div class="col-sm">
+                <h2 class="display-9"> Comments: </h2>
+            </div>
+            <div class="col-sm">
+                <h2 class="display-9"> {{ post_intro[3] }} </h2>
+            </div>
+          </div>
+          <p>
+          {{ render_table(comments, titles = [(0, "Author"), (1, "Comment"), (2, "Date")]) }}
+        </div>
+        {% endblock %}
+
+        {% block scripts %}
+            {{ bootstrap.load_js() }}
+        {% endblock %}
+    </body>
+</html>

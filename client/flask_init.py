@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
 
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://antisocial_admin@localhost/antisocialnetwork'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -12,7 +13,7 @@ app.jinja_env.lstrip_blocks = True
 db = SQLAlchemy(app)
 bootstrap = Bootstrap(app)
 
-db.Model.metadata.reflect(db.engine)
+db.Model.metadata.reflect(db.engine, views = True)
 
 class Users(db.Model):
     __table__ = db.Model.metadata.tables['users']
@@ -25,5 +26,29 @@ class Countries(db.Model):
 
 class Posts(db.Model):
     __table__ = db.Model.metadata.tables['posts']
+
+class Friends_with(db.Model):
+    __table__ = db.Model.metadata.tables['friends_with']
+
+class Friend_requests(db.Model):
+    __table__ = db.Model.metadata.tables['friend_requests']
+
+class Likes(db.Model):
+    __table__ = db.Model.metadata.tables['likes']
+
+class Messages(db.Model):
+    __table__ = db.Model.metadata.tables['messages']
+
+class Comments(db.Model):
+    __table__ = db.Model.metadata.tables['comments']
+
+class PostTags(db.Model):
+    __table__ = db.Model.metadata.tables['post_tags']
+
+class Interests(db.Model):
+    __table__ = db.Model.metadata.tables['interests']
+
+class TagList(db.Model):
+    __table__ = db.Model.metadata.tables['tag_list']
 
 country_list = list(map(lambda x: x[0], db.session.query(Countries.country_name).order_by('country_name').all()))

@@ -6,10 +6,17 @@
 	    {% include 'partials/navbar.html' %}
         <div class='jumbotron'>
             <h1 class="display-4">
-                Profile of {{ user.name }}
+                Your profile
             </h1>
             <div class="container">
-                <hr class="my-4">
+                <div class="row">
+                    <div class="col-sm">
+                        <h2 class="display-9">Name: </h2>
+                    </div>
+                    <div class="col-sm">
+                        <h2 class="display-9"> {{ user.name }} </h2>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-sm">
                         <h2 class="display-9">Friends: </h2>
@@ -17,28 +24,13 @@
                     <div class="col-sm">
                         <h2 class="display-9"> {{ n_friends}} </h2>
                     </div>
-                    <div class="col-sm">
-                        <form method="post">
-                        {% if is_friends: %}
-                            <input class="btn btn-primary" type="submit" name="submit_button" value="Unfriend">
-                        {% elif not before_request: %}
-                            <input class="btn btn-primary" type="submit" name="submit_button" value="Send friend request">
-                        {% else: %}
-                            <input class="btn btn-primary" type="submit" name="submit_button" value="Remove friend request">
-                        {% endif %}
-                        </form>
-                    </div>
                 </div>
-                <hr class="my-4">
                 <div class="row">
                     <div class="col-sm">
                         <h2 class="display-9"> Date of birth: </h2>
                     </div>
                     <div class="col-sm">
                         <h2 class="display-9"> {{ user.birthday }} </h2>
-                    </div>
-                    <div class="col-sm">
-
                     </div>
                 </div>
                 <div class="row">
@@ -48,9 +40,6 @@
                     <div class="col-sm">
                         <h2 class="display-9"> {{ user.gender }} </h2>
                     </div>
-                    <div class="col-sm">
-
-                    </div>
                 </div>
                 <div class="row">
                     <div class="col-sm">
@@ -58,9 +47,6 @@
                     </div>
                     <div class="col-sm">
                         <h2 class="display-9"> {{ country }} </h2>
-                    </div>
-                    <div class="col-sm">
-
                     </div>
                 </div>
                 <hr class="my-4">
