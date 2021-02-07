@@ -1,10 +1,14 @@
 * O projekcie
 AntiSocialNetwork to nieskomplikowana sieć społecznościowa.
-Szczegółowo opisana jest ona w prezentacji w /docs/prezentacja.pdf/
+
+Szczegółowo opisana jest ona w prezentacji w /docs/AntiSocialNetwork.pdf/
+
 Szczegóły na temat plików SQL znajdują się w komentarzach w skrypcie /create_database.sh/
 
 * Instrukcja instalowania
 Wymaga zainstalowanego pythona 3 (TWORZONE POD WERSJĄ 3.9), działającego postgresql
+
+Skrypty pisane były pod /zsh/, ale pod /bash/ też powinny działać, być może poprzedzone słowem /bash/ 
 
 #+begin_src shell
 git clone https://github.com/ugandalf/AntiSocialNetwork.git
