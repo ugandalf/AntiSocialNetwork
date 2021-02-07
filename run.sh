@@ -1,4 +1,4 @@
 #!/usr/bin/env zsh
-
-export FLASK_APP=client/app.py
-flask run
+cd client
+#export FLASK_APP=client/app.py
+python3 app.py

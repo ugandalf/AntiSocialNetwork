@@ -14,8 +14,8 @@ psql -f ./database_creation/table_views.sql
 psql -f ./database_creation/table_population.sql
 # Handles all kinds of triggers: email, password, chronology, friend_request => friends transition
 psql -f ./database_creation/table_triggers.sql
-# Fill the database with sample data - it takes some time, mainly due to password security
 psql -f ./database_creation/table_checks.sql
+# Fill the database with sample data - it takes some time, mainly due to password security
 psql -f ./database_creation/table_fill.sql
 # Adds primary and foreign keys
 psql -f ./database_creation/table_pkeys.sql
