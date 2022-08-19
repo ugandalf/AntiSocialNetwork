@@ -1,10 +1,14 @@
 * About
 AntiSocialNetwork is a simple social network project.
 Named as such due to being populated with fake people, posts, comments and such.
-It was originally a database project, with presentation available in [[docs/AntiSocialNetwork.pdf]]
+It was originally a database project, with presentation available in [[docs/AntiSocialNetwork.pdf]] (presentation in Polish)
 Details about SQL files are available in the comments of [[./create_database.sh]]
 
+The implementation is messy and if I were to make it again, I'd do things differently - most notably, I wouldn't use PL/Python, Jinja templates should use "blocks" and "extends", Bootstrap pages don't look too nice due to not looking too deep into it (time constraints, first contact with a lot of technologies), logging in isn't secure. I am however somewhat proud of it.
+
 * Installation instructions
+I don't recommend installing it and it might be problematic.
+
 Requires installed python 3 (made under version 3.9) and working PostgreSQL.
 Scripts were written with /zsh/, but they should work with /bash/, possibly with a /bash/ command before them.  
 
