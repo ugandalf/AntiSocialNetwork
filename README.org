@@ -1,14 +1,12 @@
-* O projekcie
-AntiSocialNetwork to nieskomplikowana sieć społecznościowa.
+* About
+AntiSocialNetwork is a simple social network project.
+Named as such due to being populated with fake people, posts, comments and such.
+It was originally a database project, with presentation available in [[docs/AntiSocialNetwork.pdf]]
+Details about SQL files are available in the comments of [[./create_database.sh]]
 
-Szczegółowo opisana jest ona w prezentacji w /docs/AntiSocialNetwork.pdf/
-
-Szczegóły na temat plików SQL znajdują się w komentarzach w skrypcie /create_database.sh/
-
-* Instrukcja instalowania
-Wymaga zainstalowanego pythona 3 (TWORZONE POD WERSJĄ 3.9), działającego postgresql
-
-Skrypty pisane były pod /zsh/, ale pod /bash/ też powinny działać, być może poprzedzone słowem /bash/ 
+* Installation instructions
+Requires installed python 3 (made under version 3.9) and working PostgreSQL.
+Scripts were written with /zsh/, but they should work with /bash/, possibly with a /bash/ command before them.  
 
 #+begin_src shell
 git clone https://github.com/ugandalf/AntiSocialNetwork.git
@@ -17,10 +15,10 @@ sudo pip3 install -r requirements.txt
 ./create_database.sh
 #+end_src
 
-Serwer uruchamiamy przez:
+We start a server via:
 
 #+begin_src shell
 ./run.sh
 #+end_src
 
-i dostępny pod adresem /localhost:5000/
+and it's available under /localhost:5000/
